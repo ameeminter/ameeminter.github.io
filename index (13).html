@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Amee Minter — UX Researcher & Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:         #FDFBF7;
+      --bg-alt:     #F3EFE8;
+      --purple:     #3D1054;
+      --purple-mid: #5E2280;
+      --amber:      #C9882A;
+      --amber-light:#E8B86D;
+      --text:       #1E1E1E;
+      --text-mid:   #4A4A4A;
+      --text-light: #7A7A7A;
+      --border:     #DDD8CF;
+      --white:      #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV / FIRE ESCAPE ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(253,251,247,0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 60px;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--purple);
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+    .nav-logo:hover { color: var(--amber); }
+    /* Progress bar — shows how far down the page you are */
+    .nav-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: var(--amber);
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      text-decoration: none;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .nav-links a:hover {
+      color: var(--purple);
+      background: var(--bg-alt);
+    }
+    /* Active state — shows which section you're in */
+    .nav-links a.active {
+      color: var(--purple);
+      font-weight: 600;
+    }
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0.75rem;
+      right: 0.75rem;
+      height: 2px;
+      background: var(--amber);
+      border-radius: 1px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      background: var(--purple);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      align-items: center;
+      padding: 0 4vw;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #2A0845 0%, #3D1054 60%, #1A0530 100%);
+      z-index: 1;
+    }
+    .hero-pattern, .hero-text, .hero-aside, .hero-quiz {
+      z-index: 2;
+    }
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.13;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='72'%3E%3Cpolygon points='21%2C0 42%2C12 42%2C36 21%2C48 0%2C36 0%2C12' fill='none' stroke='%23C9882A' stroke-width='1.5'/%3E%3Cpolygon points='63%2C0 84%2C12 84%2C36 63%2C48 42%2C36 42%2C12' fill='none' stroke='%23C9882A' stroke-width='1.5'/%3E%3Cline x1='21' y1='48' x2='21' y2='72' stroke='%23C9882A' stroke-width='1.5'/%3E%3Cline x1='63' y1='48' x2='63' y2='72' stroke='%23C9882A' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-size: 84px 72px;
+    }
+    .hero-text {
+      position: relative;
+      z-index: 2;
+      padding: 6rem 3vw 6rem 0;
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber-light);
+      margin-bottom: 1.5rem;
+    }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5.5vw, 6rem);
+      font-weight: 500;
+      line-height: 1.0;
+      color: var(--white);
+      margin-bottom: 1.75rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--amber-light);
+    }
+    .hero-tagline {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-tagline strong { color: rgba(255,255,255,0.95); font-weight: 500; }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── HERO QUIZ ── */
+    .hero-quiz {
+      position: relative;
+      z-index: 2;
+      padding: 4rem 0 4rem 3vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .quiz-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 2rem 2.25rem;
+      width: 100%;
+      max-width: 520px;
+      backdrop-filter: blur(4px);
+    }
+    .quiz-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--amber-light);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .quiz-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--amber);
+    }
+    .quiz-question {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: white;
+      line-height: 1.4;
+      margin-bottom: 1.25rem;
+    }
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+      margin-bottom: 1.1rem;
+    }
+    .quiz-option {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      padding: 0.6rem 0.85rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      width: 100%;
+    }
+    .quiz-option:hover { background: rgba(201,136,42,0.2); border-color: var(--amber); color: white; }
+    .quiz-option.correct { background: rgba(34,197,94,0.2); border-color: #22C55E; color: white; pointer-events: none; }
+    .quiz-option.wrong { background: rgba(239,68,68,0.2); border-color: #EF4444; color: rgba(255,255,255,0.6); pointer-events: none; }
+    .quiz-option.disabled { pointer-events: none; opacity: 0.5; }
+    .quiz-result {
+      display: none;
+      font-size: 0.87rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.65;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 0.9rem;
+      margin-top: 0.15rem;
+    }
+    .quiz-result.show { display: block; }
+    .quiz-result strong { color: var(--amber-light); }
+    .quiz-next {
+      margin-top: 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--amber);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: 'DM Sans', sans-serif;
+      display: none;
+      transition: opacity 0.2s;
+    }
+    .quiz-next:hover { opacity: 0.7; }
+    .quiz-next.show { display: inline-block; }
+    .quiz-progress {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 1.1rem;
+    }
+    .quiz-pip {
+      height: 3px;
+      flex: 1;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.2);
+      transition: background 0.3s;
+    }
+    .quiz-pip.done { background: var(--amber); }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--amber);
+      color: var(--white);
+      border: 2px solid var(--amber);
+    }
+    .btn-primary:hover {
+      background: var(--amber-light);
+      border-color: var(--amber-light);
+      color: var(--purple);
+    }
+    .btn-outline {
+      background: transparent;
+      color: rgba(255,255,255,0.85);
+      border: 2px solid rgba(255,255,255,0.35);
+    }
+    .btn-outline:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+    /* ── SECTION WRAPPER ── */
+    section { padding: 6rem 5vw; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      color: var(--purple);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .section-intro {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      max-width: 640px;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── CASE STUDIES ── */
+    #ux { background: var(--bg); }
+
+    /* Each case study is a full-width card */
+    .case-study {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+    }
+    .case-study:last-child { margin-bottom: 0; }
+
+    .case-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      min-height: 160px;
+    }
+    .case-visual-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .case-visual-icon {
+      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+    .case-visual-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+    .case-visual-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: white;
+      font-weight: 500;
+    }
+    .cv-gigbee  { background: #3D1054; }
+    .cv-maricopa { background: #1A3A5C; }
+    .cv-hoa     { background: #1C4532; }
+
+    /* Right content panel */
+    .case-content {
+      padding: 2.5rem;
+      border-left: 1px solid var(--border);
+    }
+    .case-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 400;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+    .case-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.5rem;
+    }
+    .case-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 500;
+      color: var(--purple);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .case-summary {
+      font-size: 0.97rem;
+      color: var(--text-mid);
+      margin-bottom: 1.25rem;
+      line-height: 1.75;
+      max-width: 680px;
+    }
+    .case-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: var(--bg-alt);
+      border-radius: 6px;
+    }
+    .case-meta-item {}
+    .case-meta-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 0.2rem;
+    }
+    .case-meta-value {
+      font-size: 0.88rem;
+      color: var(--text);
+      font-weight: 400;
+    }
+    .case-findings {
+      background: var(--bg-alt);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 6px 6px 0;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .case-findings-title {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.6rem;
+    }
+    .case-findings ul { list-style: none; padding: 0; }
+    .case-findings li {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      padding: 0.25rem 0;
+      padding-left: 1.1rem;
+      position: relative;
+    }
+    .case-findings li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--amber);
+      font-size: 0.75rem;
+    }
+
+    /* ── ADDITIONAL WORK ── */
+    #additional { background: var(--bg-alt); }
+
+    .additional-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .work-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .work-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(61,16,84,0.12);
+    }
+    .work-card-footer {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--amber);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    /* ── LIGHTBOX ── */
+    .lightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,0,20,0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox-overlay.open { display: flex; }
+    .lightbox-inner {
+      position: relative;
+      max-width: 1100px;
+      width: 100%;
+      max-height: 90vh;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -2.5rem;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: 0.7;
+      line-height: 1;
+    }
+    .lightbox-close:hover { opacity: 1; }
+    .lightbox-images {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      max-height: 85vh;
+      justify-content: center;
+    }
+    .lightbox-images img {
+      max-height: 85vh;
+      max-width: 100%;
+      width: auto;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    @media (max-width: 600px) {
+      .lightbox-overlay { padding: 1rem; }
+      .lightbox-images { max-height: none; overflow-x: hidden; }
+      .lightbox-images img { max-height: none; width: 100%; height: auto; }
+    }
+    .lightbox-caption {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+      text-align: center;
+      margin-top: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+
+    .work-card-icon {
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+    .work-card-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.4rem;
+    }
+    .work-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--purple);
+      margin-bottom: 0.6rem;
+    }
+    .work-card-desc {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-photo-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .about-stat-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .about-stat {
+      background: var(--bg-alt);
+      border-radius: 6px;
+      padding: 0.9rem 1rem;
+      text-align: center;
+    }
+    .about-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--purple);
+      line-height: 1;
+    }
+    .about-stat-label {
+      font-size: 0.7rem;
+      color: var(--text-light);
+      margin-top: 0.2rem;
+      letter-spacing: 0.04em;
+    }
+
+    .about-content {}
+    .about-story {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .about-story p + p { margin-top: 1.25rem; }
+    .about-story strong { color: var(--text); font-weight: 600; }
+
+    .about-story blockquote {
+      border-left: 3px solid var(--amber);
+      padding-left: 1.25rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--purple);
+      line-height: 1.6;
+    }
+
+    .skills-section { margin-top: 2.5rem; }
+    .skills-section-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      padding: 0.4rem 0;
+    }
+    .skill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--amber);
+      flex-shrink: 0;
+    }
+    .learning-strip {
+      background: var(--bg-alt);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 2rem;
+    }
+    .learning-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
+    .learning-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg-alt); }
+    #contact .section-label { color: var(--amber); }
+    #contact .section-title { color: var(--purple); }
+    .contact-sub {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      margin-bottom: 2rem;
+      max-width: 560px;
+    }
+    .contact-email-link {
+      display: inline-block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--purple);
+      text-decoration: none;
+      border-bottom: 2px solid var(--amber);
+      padding-bottom: 2px;
+      margin-bottom: 1.75rem;
+      transition: color 0.2s;
+    }
+    .contact-email-link:hover { color: var(--amber); }
+    .contact-availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-mid);
+    }
+    .contact-availability-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22C55E;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--purple);
+      padding: 1.75rem 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      color: rgba(255,255,255,0.75);
+      font-size: 1rem;
+    }
+    .footer-note {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: var(--amber);
+      border-radius: 2px;
+      margin: 1.25rem 0 2rem;
+    }
+
+    /* ── RESPONSIVE ── */
+
+    /* Tablet landscape / small desktop: 901–1100px */
+    @media (max-width: 1100px) {
+      .case-study { grid-template-columns: 160px 1fr; }
+      .case-meta-grid { grid-template-columns: 1fr 1fr; }
+      .quiz-card { max-width: 320px; }
+    }
+
+    /* Tablet portrait: 601–900px */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; padding: 0 6vw; }
+      .hero-text { padding: 4rem 0 2rem; }
+      .hero-quiz { padding: 2rem 0 4rem; justify-content: flex-start; }
+      .quiz-card { max-width: 100%; }
+
+      /* Case studies: colored band on top, content below */
+      .case-study { grid-template-columns: 1fr; }
+      .case-visual {
+        flex-direction: row;
+        gap: 1.5rem;
+        padding: 1.5rem 2rem;
+        min-height: auto;
+        text-align: left;
+        justify-content: flex-start;
+      }
+      .case-visual-inner { flex-direction: row; align-items: center; gap: 1rem; }
+      .case-visual-icon { margin-bottom: 0; }
+      .case-content { border-left: none; border-top: 1px solid var(--border); }
+      .case-meta-grid { grid-template-columns: 1fr 1fr; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-photo-wrap { position: static; }
+
+      .lightbox-pdfs { grid-template-columns: 1fr; }
+    }
+
+    /* ── ORPHAN / RUNT PREVENTION ── */
+    p, h1, h2, h3, h4, blockquote, li, .hero-tagline, .section-intro,
+    .case-summary, .about-story p, .contact-sub {
+      text-wrap: pretty;
+    }
+
+    /* ── HAMBURGER NAV (mobile) ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem;
+      z-index: 110;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--purple);
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile: up to 600px */
+    @media (max-width: 600px) {
+      .nav-hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: rgba(253,251,247,0.98);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        padding: 0.75rem 5vw 1rem;
+        gap: 0;
+        z-index: 105;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a {
+        padding: 0.75rem 0.5rem;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.9rem;
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+      .hero-text { padding: 3rem 0 1.5rem; }
+      .hero-quiz { padding: 1.5rem 0 3rem; }
+      .case-visual { padding: 1.25rem 1.5rem; }
+      .case-content { padding: 1.5rem; }
+      .case-meta-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .about-stat-strip { grid-template-columns: 1fr 1fr; }
+      section { padding: 4rem 5vw; }
+      /* Editing lightbox: stack before/after on mobile */
+      .lb-editing-grid { grid-template-columns: 1fr !important; }
+      /* Contact photo: shrink on mobile */
+      .contact-photo { width: 140px !important; }
+    }
+    /* ── ACCESSIBILITY WIDGET ── */
+    .a11y-toggle {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+    .a11y-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--purple);
+      border: 2px solid rgba(255,255,255,0.2);
+      color: white;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      transition: background 0.2s;
+    }
+    .a11y-btn:hover { background: var(--amber); }
+    .a11y-panel {
+      display: none;
+      flex-direction: column;
+      gap: 0.6rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      min-width: 210px;
+    }
+    .a11y-panel.open { display: flex; }
+    .a11y-panel-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 0.25rem;
+    }
+    .a11y-control {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-mid);
+    }
+    .a11y-control button {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.2rem 0.6rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: var(--purple);
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .a11y-control button:hover { background: var(--border); }
+    .a11y-control-group { display: flex; gap: 0.3rem; }
+    body.high-contrast {
+      --bg: #000;
+      --bg-alt: #111;
+      --white: #000;
+      --text: #fff;
+      --text-mid: #eee;
+      --text-light: #ccc;
+      --border: #444;
+      --purple: #c084fc;
+      --amber: #fbbf24;
+    }
+
+    /* Clean scrollbar */
+    * { scrollbar-width: thin; scrollbar-color: rgba(201,136,42,0.35) transparent; }
+    *::-webkit-scrollbar { width: 5px; height: 5px; }
+    *::-webkit-scrollbar-track { background: transparent; }
+    *::-webkit-scrollbar-thumb { background: rgba(201,136,42,0.35); border-radius: 3px; }
+    *::-webkit-scrollbar-thumb:hover { background: rgba(201,136,42,0.65); }
+  </style>
+</head>
+<body>
+
+<!-- NAV / FIRE ESCAPE -->
+<nav id="main-nav">
+  <div class="nav-progress" id="nav-progress"></div>
+  <a href="#home" class="nav-logo">Amee Minter</a>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#ux" data-section="ux">UX Work</a></li>
+    <li><a href="#additional" data-section="additional">More Work</a></li>
+    <li><a href="#about" data-section="about">About</a></li>
+    <li><a href="#contact" data-section="contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home" style="padding:0;">
+  <div class="hero-pattern"></div>
+  <div class="hero-inner">
+  <div class="hero-text">
+    <p class="hero-eyebrow">UX Researcher &amp; Designer</p>
+    <h1 class="hero-name">Amee<br><em>Minter.</em></h1>
+    <p class="hero-tagline">
+      I believe the ROI of UX is real. Users who feel understood keep coming back, stay loyal, and bring others with them. That's why I make things more usable — <strong>products, processes, and communication</strong> — by designing with the user first and foremost.
+    </p>
+    <div class="hero-cta">
+      <a href="#ux" class="btn btn-primary">View UX Work</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-quiz">
+    <div class="quiz-card">
+      <p class="quiz-label">Did you know?</p>
+      <div class="quiz-progress" id="quiz-progress"></div>
+      <p class="quiz-question" id="quiz-question"></p>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-result" id="quiz-result"></div>
+      <button class="quiz-next" id="quiz-next" onclick="nextQuestion()">Next →</button>
+    </div>
+  </div>
+  </div>
+
+</section>
+
+
+<!-- UX CASE STUDIES -->
+<section id="ux">
+  <div class="section-inner">
+    <p class="section-label">Featured Work</p>
+    <h2 class="section-title">UX Research &amp; Design</h2>
+    <p class="section-intro">
+      These projects demonstrate a complete UX process — from defining the problem and 
+      recruiting participants, to moderating tests, analyzing findings, and delivering 
+      actionable recommendations.
+    </p>
+
+    <!-- ── CASE STUDY 1: GIGBEE ── -->
+    <div class="case-study">
+      <div class="case-visual cv-gigbee">
+        <div class="case-visual-inner" style="position:relative;z-index:2;">
+          <div class="case-visual-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="7" y="2" width="10" height="20" rx="2"/>
+  <line x1="11" y1="18" x2="13" y2="18"/>
+  <line x1="10" y1="5" x2="14" y2="5"/>
+</svg></div>
+          <p class="case-visual-tag">App Design · UX Strategy</p>
+          <p class="case-visual-title">GigBee</p>
+        </div>
+      </div>
+      <div class="case-content">
+        <p class="case-number">01</p>
+        <p class="case-tag">UX Strategy · App Design · Wireframing</p>
+        <h3 class="case-title">GigBee: Gig Worker Earnings Tracker</h3>
+        <p class="case-summary">
+          As an eight-year participant in the gig economy — driving rideshare, completing 
+          usability tests, and attending focus groups — I knew firsthand that no existing 
+          app could track the full picture of modern gig work. I designed GigBee to fill 
+          that gap.
+        </p>
+
+        <div class="case-meta-grid">
+          <div class="case-meta-item">
+            <p class="case-meta-label">Framework</p>
+            <p class="case-meta-value">Garrett's 5 Elements of UX</p>
+          </div>
+          <div class="case-meta-item">
+            <p class="case-meta-label">Tools</p>
+            <p class="case-meta-value">Figma, Adobe Illustrator, MS Word</p>
+          </div>
+          <div class="case-meta-item">
+            <p class="case-meta-label">Deliverables</p>
+            <p class="case-meta-value">Lo-fi &amp; hi-fi wireframes, UX strategy report</p>
+          </div>
+        </div>
+
+        <div class="case-findings">
+          <p class="case-findings-title">Problem &amp; Process</p>
+          <ul>
+            <li>Existing apps (Stride, Hurdlr) either lacked customization or created excessive cognitive load through invasive permissions and complex dashboards</li>
+            <li>Gig workers doing non-driving work — focus groups, usability tests, mystery shopping — had no way to track those earnings alongside traditional gig income</li>
+            <li>Designed for "gigtrics": a dashboard-first approach where users can log income, mileage, and expenses in seconds without friction</li>
+            <li>Used the strategy, scope, structure, skeleton, and surface planes to move systematically from user needs to a polished hi-fi prototype</li>
+          </ul>
+        </div>
+
+        <div class="case-findings">
+          <p class="case-findings-title">Methods &amp; Tools</p>
+          <p style="font-size:0.9rem;color:var(--text-mid);line-height:1.7;">Competitive Analysis · Wireframing · Hi-Fi Prototype · Information Architecture · Figma · Adobe Illustrator</p>
+        </div>
+
+        <p style="margin-top:0.5rem;"><a href="./ux-strategy-report.pdf" target="_blank" rel="noopener" style="font-size:0.88rem;color:var(--amber);text-decoration:none;border-bottom:1px solid var(--amber);">View full strategy report →</a></p>
+      </div>
+    </div>
+
+    <!-- ── CASE STUDY 2: MARICOPA.GOV ── -->
+    <div class="case-study">
+      <div class="case-visual cv-maricopa">
+        <div class="case-visual-inner" style="position:relative;z-index:2;">
+          <div class="case-visual-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+  <!-- pediment triangle -->
+  <polyline points="2,10 12,3 22,10"/>
+  <!-- entablature bar -->
+  <line x1="2" y1="10" x2="22" y2="10"/>
+  <line x1="2" y1="11.5" x2="22" y2="11.5"/>
+  <!-- five evenly spaced columns -->
+  <line x1="4.5" y1="11.5" x2="4.5" y2="19"/>
+  <line x1="8" y1="11.5" x2="8" y2="19"/>
+  <line x1="12" y1="11.5" x2="12" y2="19"/>
+  <line x1="16" y1="11.5" x2="16" y2="19"/>
+  <line x1="19.5" y1="11.5" x2="19.5" y2="19"/>
+  <!-- stylobate (base) -->
+  <line x1="2" y1="19" x2="22" y2="19"/>
+  <line x1="1" y1="21" x2="23" y2="21"/>
+</svg></div>
+          <p class="case-visual-tag">Government Website · Usability Testing</p>
+          <p class="case-visual-title">Maricopa.gov</p>
+        </div>
+      </div>
+      <div class="case-content">
+        <p class="case-number">02</p>
+        <p class="case-tag">Moderated Usability Test · Research Report</p>
+        <h3 class="case-title">Can Residents Find Help on Maricopa.gov?</h3>
+        <p class="case-summary">
+          With homelessness and inflation rising in Arizona, accessing human services 
+          quickly can be a matter of safety. I conducted an in-person moderated usability 
+          test to determine whether Maricopa County residents could locate food assistance, 
+          mental health resources, job training, and rent help on the county's official website.
+        </p>
+
+        <div class="case-meta-grid">
+          <div class="case-meta-item">
+            <p class="case-meta-label">Method</p>
+            <p class="case-meta-value">Moderated in-person usability test</p>
+          </div>
+          <div class="case-meta-item">
+            <p class="case-meta-label">Participants</p>
+            <p class="case-meta-value">3 participants (ages 16, 41, 73)</p>
+          </div>
+          <div class="case-meta-item">
+            <p class="case-meta-label">Tasks</p>
+            <p class="case-meta-value">4 human services tasks</p>
+          </div>
+        </div>
+
+        <div class="case-findings">
+          <p class="case-findings-title">Key Findings</p>
+          <ul>
+            <li>None of the three participants completed all four tasks — revealing a critical accessibility gap in a site serving 4.5 million residents</li>
+            <li>All three participants said they would use the search bar, yet the site buries it in the upper right corner and provides no instruction to use it</li>
+            <li>Related human services were scattered across departments, causing participants to revisit previously-found paths without success</li>
+            <li>A page linking all human services existed but required a 5-click path to reach: Departments → Human Services → Apply for Help → Other Assistance Programs → All Services</li>
+          </ul>
+        </div>
+
+        <div class="case-findings" style="border-color: #2D6A9F; margin-top: -0.5rem;">
+          <p class="case-findings-title" style="color:#2D6A9F;">Recommendations</p>
+          <ul>
+            <li>Move the search bar to the center of the homepage with instructional helper text</li>
+            <li>Consolidate all human services under a single, easily-reached landing page</li>
+            <li>Add a "GET HELP WITH..." category to the main navigation with comprehensive subheadings</li>
+          </ul>
+        </div>
+
+        <div class="case-findings">
+          <p class="case-findings-title">Methods &amp; Tools</p>
+          <p style="font-size:0.9rem;color:var(--text-mid);line-height:1.7;">Think-Aloud Protocol · Entry &amp; Exit Questionnaires · Task Analysis · Audio Recording · Steve Krug's Rocket Surgery</p>
+        </div>
+
+        <p style="margin-top:0.5rem;"><a href="./maricopa-usability-test.pdf" target="_blank" rel="noopener" style="font-size:0.88rem;color:var(--amber);text-decoration:none;border-bottom:1px solid var(--amber);">View full usability report →</a></p>
+      </div>
+    </div>
+
+    <!-- ── CASE STUDY 3: SOLERA HOA ── -->
+    <div class="case-study">
+      <div class="case-visual cv-hoa">
+        <div class="case-visual-inner" style="position:relative;z-index:2;">
+          <div class="case-visual-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+  <!-- roof -->
+  <polyline points="2,11 12,3 22,11"/>
+  <!-- walls -->
+  <rect x="3" y="11" width="18" height="11"/>
+  <!-- left window -->
+  <rect x="5" y="13.5" width="4" height="3.5"/>
+  <!-- window cross -->
+  <line x1="7" y1="13.5" x2="7" y2="17"/>
+  <line x1="5" y1="15.2" x2="9" y2="15.2"/>
+  <!-- right window -->
+  <rect x="15" y="13.5" width="4" height="3.5"/>
+  <!-- window cross -->
+  <line x1="17" y1="13.5" x2="17" y2="17"/>
+  <line x1="15" y1="15.2" x2="19" y2="15.2"/>
+  <!-- door -->
+  <path d="M10.5 22 L10.5 17.5 Q12 16.5 13.5 17.5 L13.5 22"/>
+  <!-- ground line -->
+  <line x1="1" y1="22" x2="23" y2="22"/>
+</svg></div>
+          <p class="case-visual-tag">Community Website · Accessibility</p>
+          <p class="case-visual-title">Solera HOA</p>
+        </div>
+      </div>
+      <div class="case-content">
+        <p class="case-number">03</p>
+        <p class="case-tag">Moderated Usability Test · Accessibility Research</p>
+        <h3 class="case-title">Usability &amp; Accessibility in a 55+ Community</h3>
+        <p class="case-summary">
+          A gated retirement community's HOA website was supposed to serve its residents — 
+          but its design made even routine tasks like paying fees and submitting forms 
+          unnecessarily difficult. I tested the site with three retired residents (ages 73–83) 
+          to understand why, and to recommend practical fixes.
+        </p>
+
+        <div class="case-meta-grid">
+          <div class="case-meta-item">
+            <p class="case-meta-label">Method</p>
+            <p class="case-meta-value">Moderated in-person usability test</p>
+          </div>
+          <div class="case-meta-item">
+            <p class="case-meta-label">Participants</p>
+            <p class="case-meta-value">3 participants (ages 73, 83, 83)</p>
+          </div>
+          <div class="case-meta-item">
+            <p class="case-meta-label">Tasks</p>
+            <p class="case-meta-value">Login, e-form submission, HOA payment</p>
+          </div>
+        </div>
+
+        <div class="case-findings">
+          <p class="case-findings-title">Key Findings</p>
+          <ul>
+            <li>The login mechanism was hidden inside a large hero image — the most frequent user action was inaccessible to first-time visitors</li>
+            <li>An "E-Forms" page existed under Contacts navigation but contained no actual forms, sending users on a dead-end journey</li>
+            <li>The third-party payment portal looked unofficial to participants; one noted the site name (PayLease) didn't match the actual site (Zego) — a trust and security issue</li>
+            <li>All three participants raised accessibility concerns: font size, contrast, and readability were insufficient for the site's core demographic</li>
+          </ul>
+        </div>
+
+        <div class="case-findings" style="border-color: #2D8B5A; margin-top: -0.5rem;">
+          <p class="case-findings-title" style="color:#2D8B5A;">Recommendations</p>
+          <ul>
+            <li>Replace the hidden login with a clear, centered login form above the fold</li>
+            <li>Reorganize navigation using card sorting; separate community social features from HOA administrative functions</li>
+            <li>Make e-forms submittable online to accommodate residents with mobility limitations</li>
+            <li>Add an accessibility widget on the login page, prominently displayed</li>
+          </ul>
+        </div>
+
+        <div class="case-findings">
+          <p class="case-findings-title">Methods &amp; Tools</p>
+          <p style="font-size:0.9rem;color:var(--text-mid);line-height:1.7;">Think-Aloud Protocol · Post-Test Survey · Accessibility Evaluation · Task Analysis · Steve Krug's Rocket Surgery</p>
+        </div>
+
+        <p style="margin-top:0.5rem;"><a href="./solera-usability-test.pdf" target="_blank" rel="noopener" style="font-size:0.88rem;color:var(--amber);text-decoration:none;border-bottom:1px solid var(--amber);">View full usability report →</a></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ADDITIONAL WORK -->
+<section id="additional">
+  <div class="section-inner">
+    <p class="section-label">Additional Work</p>
+    <h2 class="section-title">Technical Communication &amp; Design</h2>
+    <p class="section-intro">
+      My program in Technical Communication — User Experience prepared me across several 
+      disciplines. The work below reflects range: clear writing, visual communication, 
+      and editorial precision. Click any card to view the work.
+    </p>
+
+    <div class="additional-grid">
+
+      <!-- Comprehensive Edits -->
+      <div class="work-card" onclick="openLightbox('editing')" role="button" tabindex="0" aria-label="View Comprehensive Edits">
+        <div class="work-card-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+        <p class="work-card-tag">Technical Editing</p>
+        <h4 class="work-card-title">Comprehensive Edits</h4>
+        <p class="work-card-desc">
+          Full-document comprehensive edits applied to Utah alcohol and drug statutes 
+          and a community college course syllabus — before and after versions available.
+        </p>
+        <div class="work-card-footer">View Before &amp; After →</div>
+      </div>
+
+      <!-- Infographic Poster (Naegleria) -->
+      <div class="work-card" onclick="openLightbox('infographic')" role="button" tabindex="0" aria-label="View Infographic Poster">
+        <div class="work-card-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></div>
+        <p class="work-card-tag">Graphic Design</p>
+        <h4 class="work-card-title">Infographic Poster</h4>
+        <p class="work-card-desc">
+          "Naegleria Fowleri in Arizona" — a data-driven infographic poster on a brain-eating 
+          amoeba found in Arizona water sources, including original charts and statistics.
+        </p>
+        <div class="work-card-footer">View Poster →</div>
+      </div>
+
+      <!-- Informative Poster (5-Star Rider) -->
+      <div class="work-card" onclick="openLightbox('informative')" role="button" tabindex="0" aria-label="View Informative Poster">
+        <div class="work-card-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <p class="work-card-tag">Graphic Design</p>
+        <h4 class="work-card-title">Informative Poster</h4>
+        <p class="work-card-desc">
+          "Be a 5-Star Phoenix Rider" — an informative poster for rideshare passengers 
+          explaining how rider ratings work and how to maintain a high score.
+        </p>
+        <div class="work-card-footer">View Poster →</div>
+      </div>
+
+      <!-- Magazine Layout -->
+      <div class="work-card" onclick="openLightbox('magazine-layout')" role="button" tabindex="0" aria-label="View Magazine Layout">
+        <div class="work-card-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+        <p class="work-card-tag">Graphic Design</p>
+        <h4 class="work-card-title">Magazine Layout</h4>
+        <p class="work-card-desc">
+          A two-page spread for <em>Poésine</em> magazine, inspired by Victor Hugo. 
+          The layout visually connects Hugo's writing with the restoration of Notre-Dame Cathedral, 
+          incorporating the golden spiral for balanced composition — a harmonious blend of 
+          literature, history, and design principles.
+        </p>
+        <div class="work-card-footer">View Pages →</div>
+      </div>
+
+      <!-- 350+ Usability Tests — not clickable -->
+      <div style="padding: 1.5rem 1rem;">
+        <p style="font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:0.5rem;">Research Participant</p>
+        <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;color:var(--purple);margin-bottom:0.75rem;">350+ Usability Tests</h4>
+        <p style="font-size:0.92rem;color:var(--text-mid);line-height:1.75;">
+          I've completed <strong style="color:var(--text);font-weight:600;">350+ moderated, unmoderated, and in-person usability tests</strong> as a participant. That first-hand experience — sitting on the other side of the one-way mirror — directly informs how I design and run my own research.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX OVERLAYS -->
+
+<!-- Magazine Layout -->
+<div class="lightbox-overlay" id="lb-magazine-layout" onclick="closeLightboxOnBg(event)">
+  <div class="lightbox-inner" style="max-height:92vh;display:flex;flex-direction:column;">
+    <button class="lightbox-close" onclick="closeLightbox('magazine-layout')" aria-label="Close">✕</button>
+    <div style="overflow-y:auto;flex:1;display:flex;justify-content:center;align-items:flex-start;">
+      <img src="./magazine-layout-hugo.jpg" alt="Poésine Magazine — Victor Hugo spread" style="width:100%;max-width:900px;height:auto;border-radius:4px;display:block;">
+    </div>
+    <p class="lightbox-caption">Poésine Magazine · Victor Hugo Two-Page Spread · Adobe InDesign &amp; Illustrator</p>
+  </div>
+</div>
+
+<!-- Informative Poster -->
+<div class="lightbox-overlay" id="lb-informative" onclick="closeLightboxOnBg(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox('informative')" aria-label="Close">✕</button>
+    <div class="lightbox-images" style="justify-content:center;">
+      <img src="./informative-poster.jpg" alt="Be a 5-Star Phoenix Rider informative poster">
+    </div>
+    <p class="lightbox-caption">Be a 5-Star Phoenix Rider · Informative Poster · Adobe Illustrator</p>
+  </div>
+</div>
+
+<!-- Infographic Poster -->
+<div class="lightbox-overlay" id="lb-infographic" onclick="closeLightboxOnBg(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox('infographic')" aria-label="Close">✕</button>
+    <div class="lightbox-images" style="justify-content:center;">
+      <img src="./infographic-poster.jpg" alt="Naegleria Fowleri in Arizona infographic poster">
+    </div>
+    <p class="lightbox-caption">Naegleria Fowleri in Arizona · Infographic Poster · Adobe Illustrator</p>
+  </div>
+</div>
+
+<!-- Editing Before/After -->
+<div class="lightbox-overlay" id="lb-editing" onclick="closeLightboxOnBg(event)">
+  <div class="lightbox-inner" id="lb-editing-inner" tabindex="0" style="max-width:1100px;width:95vw;max-height:92vh;overflow-y:scroll;position:relative;padding-top:2.5rem;outline:none;scrollbar-width:thin;scrollbar-color:rgba(201,136,42,0.6) rgba(255,255,255,0.1);">
+    <button class="lightbox-close" onclick="closeLightbox('editing')" aria-label="Close" style="top:0.75rem;right:0.75rem;">✕</button>
+
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:500;color:white;margin-bottom:0.25rem;">Comprehensive Edits</p>
+    <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);margin-bottom:1.5rem;">Click any preview to open the full document in a new tab.</p>
+
+    <!-- Utah Drug Laws -->
+    <p style="font-size:0.68rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber-light);margin-bottom:0.75rem;">Utah Alcohol, Tobacco &amp; Drug Laws</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;" class="lb-editing-grid">
+      <a href="./utah-laws-original.pdf" target="_blank" rel="noopener" style="display:block;text-decoration:none;">
+        <p style="font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#F87171;margin-bottom:0.5rem;">Before</p>
+        <img src="./preview-utah-before.jpg" alt="Utah Laws — Original" style="width:100%;border-radius:6px;display:block;border:2px solid rgba(248,113,113,0.3);transition:border-color 0.2s;" onmouseover="this.style.borderColor='#F87171'" onmouseout="this.style.borderColor='rgba(248,113,113,0.3)'">
+        <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);text-align:center;margin-top:0.4rem;">Open full PDF ↗</p>
+      </a>
+      <a href="./utah-laws-edited.pdf" target="_blank" rel="noopener" style="display:block;text-decoration:none;">
+        <p style="font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#6EE7B7;margin-bottom:0.5rem;">After</p>
+        <img src="./preview-utah-after.jpg" alt="Utah Laws — Edited" style="width:100%;border-radius:6px;display:block;border:2px solid rgba(110,231,183,0.3);transition:border-color 0.2s;" onmouseover="this.style.borderColor='#6EE7B7'" onmouseout="this.style.borderColor='rgba(110,231,183,0.3)'">
+        <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);text-align:center;margin-top:0.4rem;">Open full PDF ↗</p>
+      </a>
+    </div>
+
+    <!-- Syllabus -->
+    <p style="font-size:0.68rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber-light);margin-bottom:0.75rem;">CNT140 Course Syllabus</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;" class="lb-editing-grid">
+      <a href="./syllabus-original.pdf" target="_blank" rel="noopener" style="display:block;text-decoration:none;">
+        <p style="font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#F87171;margin-bottom:0.5rem;">Before</p>
+        <img src="./preview-syllabus-before.jpg" alt="Syllabus — Original" style="width:100%;border-radius:6px;display:block;border:2px solid rgba(248,113,113,0.3);transition:border-color 0.2s;" onmouseover="this.style.borderColor='#F87171'" onmouseout="this.style.borderColor='rgba(248,113,113,0.3)'">
+        <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);text-align:center;margin-top:0.4rem;">Open full PDF ↗</p>
+      </a>
+      <a href="./syllabus-edited.pdf" target="_blank" rel="noopener" style="display:block;text-decoration:none;">
+        <p style="font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#6EE7B7;margin-bottom:0.5rem;">After</p>
+        <img src="./preview-syllabus-after.jpg" alt="Syllabus — Edited" style="width:100%;border-radius:6px;display:block;border:2px solid rgba(110,231,183,0.3);transition:border-color 0.2s;" onmouseover="this.style.borderColor='#6EE7B7'" onmouseout="this.style.borderColor='rgba(110,231,183,0.3)'">
+        <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);text-align:center;margin-top:0.4rem;">Open full PDF ↗</p>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-photo-wrap">
+        <img src="./broken-down.png" alt="Broken-down car — the origin story" style="width:100%;border-radius:8px;display:block;margin-bottom:1.25rem;">
+      </div>
+
+      <div class="about-content">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">From a cupholder<br><em>to a career path.</em></h2>
+        <div class="divider"></div>
+
+        <div class="about-story">
+          <p>
+            My path to UX started with a badly designed cupholder. During a period when my 
+            high-mileage car spent more time in the shop than on the road, I was renting vehicles 
+            constantly. Each rental was a tour of someone's design decisions — some delightful, 
+            most frustrating. The turning point was a cupholder positioned so that selecting the 
+            correct gear required navigating around a water bottle. I wanted to understand why that 
+            happened and how to prevent it.
+          </p>
+          <blockquote>
+            "I realized the questions I'd been asking since childhood 
+            were the same ones UX designers ask every day."
+          </blockquote>
+          <p>
+            That realization led me to enroll in Arizona State University's 
+            <strong>B.S. Technical Communication — User Experience</strong> program, which I 
+            completed in August 2024 with a <strong>4.0 GPA</strong>.
+          </p>
+          <p>
+            Beyond coursework, I've participated in <strong>350+ moderated and unmoderated 
+            usability tests</strong> as a participant across a range of industries and formats. 
+            I treat every session as fieldwork — closely observing how facilitators structure tasks, 
+            handle unexpected responses, and guide participants without leading them. Sitting on 
+            the other side of those sessions has made me a sharper researcher: I know what good 
+            facilitation looks and feels like, and I know when a test is generating noise instead 
+            of signal.
+          </p>
+          <p>
+            I'm currently deepening my skill set through <strong>OOUX (Object-Oriented UX)</strong> 
+            via Sophia Prater's video training and podcast, <em>The UX Level-Up</em>, while also 
+            building a stronger quantitative foundation — having earned a 99.4% in Elements of 
+            Statistics at ASU. Comfort with data, not just qualitative insights, is 
+            something I want to bring to every project I work on.
+          </p>
+        </div>
+
+        <div class="skills-section">
+          <p class="skills-section-title">Skills &amp; Methods</p>
+          <div class="skills-grid">
+            <div class="skill-item"><span class="skill-dot"></span>User research &amp; usability testing</div>
+            <div class="skill-item"><span class="skill-dot"></span>Information architecture</div>
+            <div class="skill-item"><span class="skill-dot"></span>User-centered design</div>
+            <div class="skill-item"><span class="skill-dot"></span>User journey mapping</div>
+            <div class="skill-item"><span class="skill-dot"></span>Wireframing (lo-fi &amp; hi-fi)</div>
+            <div class="skill-item"><span class="skill-dot"></span>Technical editing</div>
+            <div class="skill-item"><span class="skill-dot"></span>Figma</div>
+            <div class="skill-item"><span class="skill-dot"></span>Adobe Illustrator</div>
+            <div class="skill-item"><span class="skill-dot"></span>Adobe Photoshop</div>
+            <div class="skill-item"><span class="skill-dot"></span>Google Workspace</div>
+            <div class="skill-item"><span class="skill-dot"></span>Microsoft 365</div>
+            <div class="skill-item"><span class="skill-dot"></span>Statistics &amp; quantitative research</div>
+          </div>
+        </div>
+
+        <div class="learning-strip">
+          <p class="learning-title">Continuing Education</p>
+          <ul style="list-style:none;padding:0;margin:0;">
+            <li class="skill-item" style="align-items:flex-start;padding:0.5rem 0;border-bottom:1px solid var(--border);">
+              <span class="skill-dot" style="margin-top:0.45rem;"></span>
+              <div>
+                <strong>Computer Applications</strong><br>
+                <span style="font-size:0.85rem;color:var(--text-light);">Arizona State University · In progress</span>
+              </div>
+            </li>
+            <li class="skill-item" style="align-items:flex-start;padding:0.5rem 0;border-bottom:1px solid var(--border);">
+              <span class="skill-dot" style="margin-top:0.45rem;"></span>
+              <div>
+                <strong>OOUX — Object-Oriented UX</strong><br>
+                <span style="font-size:0.85rem;color:var(--text-light);">Video training &amp; podcast: <em>The UX Level-Up</em> · Sophia Prater · In progress</span>
+              </div>
+            </li>
+            <li class="skill-item" style="align-items:flex-start;padding:0.5rem 0;border-bottom:1px solid var(--border);">
+              <span class="skill-dot" style="margin-top:0.45rem;"></span>
+              <div>
+                <strong>Elements of Statistics</strong><br>
+                <span style="font-size:0.85rem;color:var(--text-light);">Arizona State University&nbsp;·&nbsp;March 2026</span>
+              </div>
+            </li>
+            <li class="skill-item" style="align-items:flex-start;padding:0.5rem 0;">
+              <span class="skill-dot" style="margin-top:0.45rem;"></span>
+              <div>
+                <strong>Google UX Design Professional Certificate</strong><br>
+                <span style="font-size:0.85rem;color:var(--text-light);">Foundations of User Experience (UX) Design · Coursera · June 2022</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div style="display:flex;align-items:flex-start;gap:3rem;flex-wrap:wrap;">
+      <div style="flex:1;min-width:280px;">
+        <p class="section-label">Get in Touch</p>
+        <h2 class="section-title">Let's work together.</h2>
+        <p class="contact-sub">
+          I'm actively seeking opportunities in UX research and design — full-time, contract, 
+          or freelance. I'd love to hear from you.
+        </p>
+        <a href="mailto:amee.minter@gmail.com" class="contact-email-link">
+          amee.minter@gmail.com
+        </a>
+      </div>
+      <div class="contact-photo" style="flex-shrink:0;width:240px;">
+        <img src="./profile-pic.jpg" alt="Amee Minter" style="width:100%;border-radius:8px;display:block;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESSIBILITY WIDGET -->
+<div class="a11y-toggle" role="region" aria-label="Accessibility options">
+  <div class="a11y-panel" id="a11y-panel" role="dialog" aria-label="Accessibility controls">
+    <p class="a11y-panel-title">Accessibility</p>
+    <div class="a11y-control">
+      <span>Text size</span>
+      <div class="a11y-control-group">
+        <button onclick="adjustFont(-1)" aria-label="Decrease font size">A−</button>
+        <button onclick="adjustFont(1)" aria-label="Increase font size">A+</button>
+      </div>
+    </div>
+    <div class="a11y-control">
+      <span>Contrast</span>
+      <button onclick="toggleContrast()" id="contrast-btn" aria-label="Toggle high contrast">High</button>
+    </div>
+    <div class="a11y-control">
+      <span>Reset</span>
+      <button onclick="resetA11y()" aria-label="Reset accessibility settings">Reset</button>
+    </div>
+  </div>
+  <button class="a11y-btn" onclick="toggleA11yPanel()" aria-label="Open accessibility options" title="Accessibility options">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="7" r="1" fill="currentColor"/><path d="M9 12h3v5"/></svg>
+  </button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Amee Minter · UX Researcher &amp; Designer</span>
+  <span class="footer-note">© <span id="footer-year"></span> Amee Minter. All rights reserved.</span>
+</footer>
+<script>
+  // Fire escape: active section tracking + scroll progress bar
+  const sections = ['ux', 'additional', 'about', 'contact'];
+  const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+  const progressBar = document.getElementById('nav-progress');
+
+  // IntersectionObserver — marks which section you're in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.dataset.section === entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }, { passive: true });
+
+  // Lightbox
+  function showEditSet(which) {
+    ['utah','syllabus'].forEach(s => {
+      const el = document.getElementById('editset-' + s);
+      const tab = document.getElementById('tab-' + s);
+      if (el && tab) {
+        const active = s === which;
+        el.style.display = active ? 'grid' : 'none';
+        tab.style.background = active ? 'var(--amber)' : 'rgba(255,255,255,0.1)';
+        tab.style.color = active ? 'white' : 'rgba(255,255,255,0.7)';
+        tab.style.border = active ? 'none' : '1px solid rgba(255,255,255,0.2)';
+      }
+    });
+  }
+
+  function openLightbox(id) {
+    const el = document.getElementById('lb-' + id);
+    if (el) {
+      el.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Focus the scrollable inner div so arrow keys work inside it
+      const inner = document.getElementById('lb-' + id + '-inner');
+      if (inner) { setTimeout(() => inner.focus(), 50); }
+    }
+  }
+  function closeLightbox(id) {
+    const el = document.getElementById('lb-' + id);
+    if (el) { el.classList.remove('open'); document.body.style.overflow = ''; }
+  }
+  function closeLightboxOnBg(e) {
+    if (e.target === e.currentTarget) { e.currentTarget.classList.remove('open'); document.body.style.overflow = ''; }
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.lightbox-overlay.open').forEach(el => {
+        el.classList.remove('open'); document.body.style.overflow = '';
+      });
+    }
+  });
+  document.querySelectorAll('.work-card[tabindex]').forEach(card => {
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); } });
+  });
+
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  // ── UX QUIZ ──
+  const questions = [
+    {
+      q: "Every $1 invested in UX returns how much on average?",
+      options: ["$2", "$10", "$100", "$500"],
+      correct: 2,
+      insight: "<strong>$100 for every $1</strong> — that's the ROI of good UX, according to Forrester Research. Poor UX costs businesses in support calls, cart abandonment, and lost customers."
+    },
+    {
+      q: "What percentage of users abandon a task because of confusing design?",
+      options: ["22%", "46%", "70%", "88%"],
+      correct: 2,
+      insight: "<strong>70% of users</strong> abandon tasks due to poor usability. That's not a user problem — it's a design problem. Good UX research finds and fixes those moments before they cost you."
+    },
+    {
+      q: "How long does it take users to form a first impression of a website?",
+      options: ["3 seconds", "0.05 seconds", "5 seconds", "1 minute"],
+      correct: 1,
+      insight: "<strong>50 milliseconds</strong> — faster than a blink. Visual design, layout, and clarity make or break that impression before a single word is read."
+    },
+    {
+      q: "What fraction of product failures are attributed to poor user research?",
+      options: ["1 in 10", "1 in 4", "1 in 2", "3 in 4"],
+      correct: 1,
+      insight: "<strong>1 in 4</strong> product failures trace back to inadequate user research. Understanding users before building — not after — is the difference between a product people love and one they leave."
+    },
+    {
+      q: "Testing with how many users catches ~85% of usability problems?",
+      options: ["25 users", "10 users", "5 users", "50 users"],
+      correct: 2,
+      insight: "<strong>Just 5 users</strong> — a finding by Jakob Nielsen. You don't need a massive study to find where your design breaks down. You need the right process."
+    }
+  ];
+
+  let current = 0;
+  let answered = false;
+
+  function buildProgress() {
+    const wrap = document.getElementById('quiz-progress');
+    if (!wrap) return;
+    wrap.innerHTML = questions.map((_, i) => `<div class="quiz-pip${i < current ? ' done' : ''}" id="pip-${i}"></div>`).join('');
+  }
+
+  function loadQuestion() {
+    answered = false;
+    const q = questions[current];
+    document.getElementById('quiz-question').textContent = q.q;
+    document.getElementById('quiz-result').className = 'quiz-result';
+    document.getElementById('quiz-result').innerHTML = '';
+    document.getElementById('quiz-next').className = 'quiz-next';
+    const opts = document.getElementById('quiz-options');
+    opts.innerHTML = q.options.map((o, i) =>
+      `<button class="quiz-option" onclick="answer(${i})">${o}</button>`
+    ).join('');
+    buildProgress();
+  }
+
+  function answer(idx) {
+    if (answered) return;
+    answered = true;
+    const q = questions[current];
+    const buttons = document.querySelectorAll('.quiz-option');
+    buttons.forEach((b, i) => {
+      if (i === q.correct) b.classList.add('correct');
+      else if (i === idx) b.classList.add('wrong');
+      else b.classList.add('disabled');
+    });
+    const result = document.getElementById('quiz-result');
+    result.innerHTML = q.insight;
+    result.classList.add('show');
+    const nextBtn = document.getElementById('quiz-next');
+    if (current < questions.length - 1) {
+      nextBtn.textContent = 'Next →';
+    } else {
+      nextBtn.textContent = 'See my work ↓';
+    }
+    nextBtn.classList.add('show');
+    document.getElementById(`pip-${current}`).classList.add('done');
+  }
+
+  function nextQuestion() {
+    if (current < questions.length - 1) {
+      current++;
+      loadQuestion();
+    } else {
+      document.querySelector('#ux').scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  loadQuestion();
+
+  // Accessibility widget
+  function toggleA11yPanel() {
+    document.getElementById('a11y-panel').classList.toggle('open');
+  }
+  let fontScale = 0;
+  function adjustFont(dir) {
+    fontScale += dir;
+    fontScale = Math.max(-2, Math.min(4, fontScale));
+    document.documentElement.style.fontSize = (100 + fontScale * 10) + '%';
+  }
+  let highContrast = false;
+  function toggleContrast() {
+    highContrast = !highContrast;
+    document.body.classList.toggle('high-contrast', highContrast);
+    document.getElementById('contrast-btn').textContent = highContrast ? 'Normal' : 'High';
+  }
+  function resetA11y() {
+    fontScale = 0;
+    document.documentElement.style.fontSize = '';
+    highContrast = false;
+    document.body.classList.remove('high-contrast');
+    document.getElementById('contrast-btn').textContent = 'High';
+  }
+  document.addEventListener('click', function(e) {
+    const panel = document.getElementById('a11y-panel');
+    const widget = document.querySelector('.a11y-toggle');
+    if (panel.classList.contains('open') && !widget.contains(e.target)) {
+      panel.classList.remove('open');
+    }
+  });
+  // Hamburger nav toggle
+  const hamburger = document.getElementById('nav-hamburger');
+  const navMenu = document.getElementById('nav-links');
+  hamburger.addEventListener('click', () => {
+    const open = hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+  });
+  // Close menu when a link is tapped
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+    });
+  });
+</script>
+</body>
+</html>
