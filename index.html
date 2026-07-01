@@ -1553,9 +1553,8 @@
       <span>Contrast</span>
       <button onclick="toggleContrast()" id="contrast-btn" aria-label="Toggle high contrast">High</button>
     </div>
-    <div class="a11y-control">
-      <span>Reset</span>
-      <button onclick="resetA11y()" aria-label="Reset accessibility settings">Reset</button>
+    <div class="a11y-control a11y-control-solo">
+      <button class="a11y-clear-btn" onclick="resetA11y()" aria-label="Clear all accessibility settings">Clear Settings</button>
     </div>
   </div>
   <button class="a11y-btn" onclick="toggleA11yPanel()" aria-label="Open accessibility options" title="Accessibility options">
